@@ -1,3 +1,4 @@
+import string
 import sys
 
 TEXTS = [
@@ -60,3 +61,40 @@ choice = int(choice)
 if choice < 1 or choice > len(TEXTS):
     print("There is no text with this number, terminating the program..")
     sys.exit()
+
+# rozdělení na slova + odstranění interpunkce (kvůli délkám slov)
+words = []
+for word in TEXTS[choice - 1].split():
+    word = word.strip(string.punctuation)
+    if word:
+        words.append(word)
+
+if not words:
+    print("The selected text is empty, terminating the program..")
+    sys.exit()
+
+titlecase = 0
+uppercase = 0
+lowercase = 0
+numbers = []
+lengths = {}
+
+for word in words:
+    if word.isdecimal():
+        numbers.append(int(word))
+    elif word.istitle():
+        titlecase += 1
+    elif word.isupper():
+        uppercase += 1
+    elif word.islower():
+        lowercase += 1
+
+    lengths[len(word)] = lengths.get(len(word), 0) + 1
+
+print(line)
+print(f"There are {len(words)} words in the selected text.")
+print(f"There are {titlecase} titlecase words.")
+print(f"There are {uppercase} uppercase words.")
+print(f"There are {lowercase} lowercase words.")
+print(f"There are {len(numbers)} numeric strings.")
+print(f"The sum of all the numbers {sum(numbers)}")
