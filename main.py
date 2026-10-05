@@ -1,3 +1,5 @@
+import sys
+
 TEXTS = [
     '''Situated about 10 miles west of Kemmerer,
     Fossil Butte is a ruggedly impressive
@@ -34,3 +36,16 @@ users = {
 }
 
 line = "-" * 40
+
+username = input("username:")
+password = input("password:")
+
+# jméno a heslo musí sedět dohromady, nestačí že existují samostatně
+if users.get(username) != password:
+    print("unregistered user, terminating the program..")
+    sys.exit()
+
+print(line)
+print("Welcome to the app,", username)
+print("We have", len(TEXTS), "texts to be analyzed.")
+print(line)
