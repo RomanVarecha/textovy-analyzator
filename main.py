@@ -98,3 +98,13 @@ print(f"There are {uppercase} uppercase words.")
 print(f"There are {lowercase} lowercase words.")
 print(f"There are {len(numbers)} numeric strings.")
 print(f"The sum of all the numbers {sum(numbers)}")
+
+# sloupec s hvězdičkami musí být dost široký i pro nejdelší řádek
+width = max(max(lengths.values()), len("OCCURRENCES")) + 4
+
+print(line)
+print("LEN|" + "OCCURRENCES".center(width) + "|NR.")
+print(line)
+for length in sorted(lengths):
+    count = lengths[length]
+    print(f"{length:>3}|{'*' * count:<{width}}|{count}")
