@@ -49,3 +49,14 @@ print(line)
 print("Welcome to the app,", username)
 print("We have", len(TEXTS), "texts to be analyzed.")
 print(line)
+
+choice = input(f"Enter a number btw. 1 and {len(TEXTS)} to select: ")
+
+if not choice.isdecimal():
+    print("You have to enter a number, terminating the program..")
+    sys.exit()
+
+choice = int(choice)
+if choice < 1 or choice > len(TEXTS):
+    print("There is no text with this number, terminating the program..")
+    sys.exit()
