@@ -1,3 +1,5 @@
+"""Textový analyzátor: přihlášení uživatele a analýza vybraného textu."""
+
 import string
 import sys
 
