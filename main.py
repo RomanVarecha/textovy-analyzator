@@ -37,9 +37,12 @@ users = {
 
 line = "-" * 40
 
+# znaky, které se odstraní ze začátku a konce slov
+PUNCTUATION = ".,:;!?()[]{}\"'-"
+
 # přihlášení uživatele
-username = input("username:")
-password = input("password:")
+username = input("username:").strip()
+password = input("password:").strip()
 
 if username in users and users[username] == password:
     print(line)
@@ -51,7 +54,7 @@ else:
     exit()
 
 # výběr textu
-choice = input(f"Enter a number btw. 1 and {len(TEXTS)} to select: ")
+choice = input(f"Enter a number btw. 1 and {len(TEXTS)} to select: ").strip()
 
 if not choice.isdigit():
     print("You have to enter a number, terminating the program..")
@@ -68,8 +71,9 @@ text = TEXTS[choice - 1]
 # rozdělení textu na slova a odstranění interpunkce
 words = []
 for word in text.split():
-    word = word.strip(".,:;!?")
-    words.append(word)
+    word = word.strip(PUNCTUATION)
+    if word:    # samotná interpunkce by po očištění zůstala prázdná
+        words.append(word)
 
 # počítání slov
 titlecase = 0
@@ -80,14 +84,14 @@ numbers_sum = 0
 
 for word in words:
     if word.isdigit():
-        numbers_count = numbers_count + 1
-        numbers_sum = numbers_sum + int(word)
+        numbers_count += 1
+        numbers_sum += int(word)
     elif word.istitle():
-        titlecase = titlecase + 1
+        titlecase += 1
     elif word.isupper():
-        uppercase = uppercase + 1
+        uppercase += 1
     elif word.islower():
-        lowercase = lowercase + 1
+        lowercase += 1
 
 print(line)
 print(f"There are {len(words)} words in the selected text.")
@@ -102,12 +106,12 @@ lengths = {}
 for word in words:
     length = len(word)
     if length in lengths:
-        lengths[length] = lengths[length] + 1
+        lengths[length] += 1
     else:
         lengths[length] = 1
 
 # sloupcový graf - šířka sloupce podle nejdelší řady hvězdiček
-width = 16
+width = len("OCCURRENCES") + 5    # záhlaví s mezerami kolem
 for count in lengths.values():
     if count > width:
         width = count
